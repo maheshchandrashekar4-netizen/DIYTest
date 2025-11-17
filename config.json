@@ -3,7 +3,7 @@
   "type": "REST",
   "lang": {
     "en-US": {
-    "name": "Chandra's Test",
+      "name": "Chandra's Test",
       "description": "Fetches rows from a Data Extension for testing"
     }
   },
@@ -24,7 +24,10 @@
       "url": "https://diytest.onrender.com/publish"
     },
     "validate": {
-      "url": "https://diytest.onrender.com/save"
+      "url": "https://diytest.onrender.com/validate"
+    }, 
+    "stop": {
+      "url": "https://diytest.onrender.com/stop"
     }
   },
   "userInterfaces": {
@@ -32,6 +35,13 @@
       "url": "https://diytest.onrender.com/ui.html"
     }
   },
-  "schema": {},
+  "schema": {
+    "arguments": {
+      "execute": {
+        "inArguments": [],
+        "outArguments": []
+      }
+    }
+  },
   "category": "custom"
 }
