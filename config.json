@@ -1,0 +1,37 @@
+{
+  "workflowApiVersion": "1.1",
+  "type": "REST",
+  "lang": {
+    "en-US": {
+      "name": "Fetch DE Data",
+      "description": "Fetches rows from a Data Extension for testing"
+    }
+  },
+  "arguments": {
+    "execute": {
+      "inArguments": [],
+      "outArguments": [],
+      "url": "https://YOUR_RENDER_URL/execute",
+      "verb": "POST",
+      "body": "",
+      "header": "",
+      "format": "json",
+      "useJwt": false
+    }
+  },
+  "configurationArguments": {
+    "publish": {
+      "url": "https://YOUR_RENDER_URL/publish"
+    },
+    "validate": {
+      "url": "https://YOUR_RENDER_URL/save"
+    }
+  },
+  "userInterfaces": {
+    "configTab": {
+      "url": "https://YOUR_RENDER_URL/ui.html"
+    }
+  },
+  "schema": {},
+  "category": "custom"
+}
