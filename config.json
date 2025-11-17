@@ -3,7 +3,7 @@
   "type": "REST",
   "lang": {
     "en-US": {
-      "name": "Chandra's Test2",
+      "name": "Chandra's Test Activity",
       "description": "Fetches rows from a Data Extension for testing"
     }
   },
@@ -11,7 +11,7 @@
     "execute": {
       "inArguments": [],
       "outArguments": [],
-      "url": "https://diytest.onrender.com/execute",
+      "url": "https://diytest-1.onrender.com/execute",
       "verb": "POST",
       "body": "",
       "header": "",
@@ -21,18 +21,18 @@
   },
   "configurationArguments": {
     "publish": {
-      "url": "https://diytest.onrender.com/publish"
+      "url": "https://diytest-1.onrender.com/publish"
     },
     "validate": {
-      "url": "https://diytest.onrender.com/validate"
-    }, 
+      "url": "https://diytest-1.onrender.com/validate"
+    },
     "stop": {
-      "url": "https://diytest.onrender.com/stop"
+      "url": "https://diytest-1.onrender.com/stop"
     }
   },
   "userInterfaces": {
     "configTab": {
-      "url": "https://diytest.onrender.com/ui.html"
+      "url": "https://diytest-1.onrender.com/ui.html"
     }
   },
   "schema": {
