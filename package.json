@@ -1,13 +1,14 @@
 {
-  "name": "sfmc-custom-activity",
+  "name": "diytest-custom-activity",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "SFMC Custom Journey Builder Activity",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "axios": "^1.6.2",
-    "body-parser": "^1.20.2"
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5"
   }
 }
