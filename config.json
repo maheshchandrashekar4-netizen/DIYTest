@@ -3,7 +3,7 @@
   "type": "REST",
   "lang": {
     "en-US": {
-      "name": "Chandra's Test Activity",
+      "name": "Chandra's Test4 Activity",
       "description": "Fetches rows from a Data Extension for testing"
     }
   },
