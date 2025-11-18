@@ -1,22 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Chandra's Test Activity</title>
-    <meta charset="UTF-8" />
+
+    <!-- Required JB Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/postmonger/0.0.15/postmonger.min.js"></script>
+
     <style>
-        body { font-family: Arial; padding: 20px; }
-        h2 { color: #333; }
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
+
 <body>
+    <div class="title">Chandra's Test Activity</div>
+    <p>This custom activity fetches data from a DE.</p>
 
-<h2>Chandra's Test Activity</h2>
-<p>This custom activity fetches DE records during execution.</p>
+    <script>
+        // BASIC Postmonger bootstrap
+        var Postmonger = window.Postmonger;
+        var session = new Postmonger.Session();
 
-<script>
-    // This ensures the UI loads inside Journey Builder correctly
-    console.log("UI Loaded for Chandra's Test Activity");
-</script>
+        session.on("initActivity", function() {
+            console.log("UI Initialized");
+        });
 
+        session.on("clickedNext", function() {
+            session.trigger("readyToComplete");
+        });
+
+        // Tell JB UI is ready
+        session.trigger("ready");
+    </script>
 </body>
 </html>
