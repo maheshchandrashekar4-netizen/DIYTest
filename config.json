@@ -3,15 +3,15 @@
   "type": "REST",
   "lang": {
     "en-US": {
-      "name": "Chandra's Test4 Activity",
-      "description": "Fetches rows from a Data Extension for testing"
+      "name": "Chandra Test Activity",
+      "description": "Test Custom Activity"
     }
   },
   "arguments": {
     "execute": {
       "inArguments": [],
       "outArguments": [],
-      "url": "https://diytest-3.onrender.com/execute",
+      "url": "https://diytest-5.onrender.com/execute",
       "verb": "POST",
       "body": "",
       "header": "",
@@ -21,18 +21,18 @@
   },
   "configurationArguments": {
     "publish": {
-      "url": "https://diytest-3.onrender.com/publish"
+      "url": "https://diytest-5.onrender.com/publish"
     },
     "validate": {
-      "url": "https://diytest-3.onrender.com/validate"
+      "url": "https://diytest-5.onrender.com/validate"
     },
     "stop": {
-      "url": "https://diytest-3.onrender.com/stop"
+      "url": "https://diytest-5.onrender.com/stop"
     }
   },
   "userInterfaces": {
     "configTab": {
-      "url": "https://diytest-3.onrender.com/ui.html"
+      "url": "https://diytest-5.onrender.com/ui"
     }
   },
   "schema": {
