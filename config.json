@@ -11,10 +11,7 @@
     "execute": {
       "url": "https://diytest-5.onrender.com/execute",
       "verb": "POST",
-      "body": "",
-      "header": "",
-      "format": "json",
-      "useJwt": false
+      "format": "json"
     }
   },
   "configurationArguments": {
@@ -36,12 +33,5 @@
       "url": "https://diytest-5.onrender.com/ui"
     }
   },
-  "schema": {
-    "arguments": {
-      "execute": {
-        "inArguments": [],
-        "outArguments": []
-      }
-    }
-  }
+  "category": "custom"
 }
