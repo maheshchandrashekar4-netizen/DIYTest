@@ -4,13 +4,11 @@
   "lang": {
     "en-US": {
       "name": "Chandra Test Activity",
-      "description": "Test Custom Activity"
+      "description": "A testing custom activity"
     }
   },
   "arguments": {
     "execute": {
-      "inArguments": [],
-      "outArguments": [],
       "url": "https://diytest-5.onrender.com/execute",
       "verb": "POST",
       "body": "",
@@ -20,6 +18,9 @@
     }
   },
   "configurationArguments": {
+    "save": {
+      "url": "https://diytest-5.onrender.com/save"
+    },
     "publish": {
       "url": "https://diytest-5.onrender.com/publish"
     },
@@ -42,6 +43,5 @@
         "outArguments": []
       }
     }
-  },
-  "category": "custom"
+  }
 }
