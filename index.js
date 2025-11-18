@@ -1,83 +1,48 @@
-const express = require("express");
-const axios = require("axios");
-const bodyParser = require("body-parser");
-const path = require("path");
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
 
 const app = express();
-app.use(bodyParser.json());
+const PORT = process.env.PORT || 3000;
 
-// Root route
-app.get("/", (req, res) => {
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Serve all static files from /public
+app.use(express.static(path.join(__dirname, 'public')));
+
+// UI URL for the custom activity
+app.get('/ui', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/ui.html'));
+});
+
+// Journey Builder Callbacks
+app.post('/publish', (req, res) => {
+    console.log("Publish called");
+    res.sendStatus(200);
+});
+
+app.post('/validate', (req, res) => {
+    console.log("Validate called");
+    res.sendStatus(200);
+});
+
+app.post('/stop', (req, res) => {
+    console.log("Stop called");
+    res.sendStatus(200);
+});
+
+app.post('/execute', (req, res) => {
+    console.log("Execute payload:", req.body);
+    res.json({ success: true });
+});
+
+// Default homepage
+app.get('/', (req, res) => {
     res.send("Journey Builder Custom Activity Server Running");
 });
 
-// Get Access Token
-async function getAccessToken() {
-    const url = `${process.env.SFMC_AUTH_BASE}/v2/token`;
-
-    const payload = {
-        grant_type: "client_credentials",
-        client_id: process.env.SFMC_CLIENT_ID,
-        client_secret: process.env.SFMC_CLIENT_SECRET
-    };
-
-    const response = await axios.post(url, payload);
-    return response.data.access_token;
-}
-
-// Fetch DE Records
-async function fetchDERecords(accessToken) {
-    const url = `${process.env.SFMC_REST_BASE}/hub/v1/dataevents/key:${process.env.DE_EXTERNAL_KEY}/rowset`;
-
-    const config = {
-        headers: {
-            "Authorization": `Bearer ${accessToken}`,
-            "Content-Type": "application/json"
-        }
-    };
-
-    const response = await axios.get(url, config);
-    return response.data;
-}
-
-// EXECUTE
-app.post("/execute", async (req, res) => {
-    try {
-        console.log("⚡ Execute triggered from Journey Builder");
-
-        const token = await getAccessToken();
-        const rows = await fetchDERecords(token);
-
-        res.status(200).json({
-            error: false,
-            message: "DE data fetched successfully",
-            data: rows
-        });
-
-    } catch (error) {
-        console.error("❌ Execute Error:", error.response?.data || error);
-        res.status(500).json({
-            error: true,
-            message: "DE Fetch Failed",
-            detail: error.response?.data || error.message
-        });
-    }
-});
-
-// Config + UI
-app.get("/config.json", (req, res) => {
-    res.sendFile(path.join(__dirname, "config.json"));
-});
-
-app.get("/ui.html", (req, res) => {
-    res.sendFile(path.join(__dirname, "ui.html"));
-});
-
-// Save / Validate / Publish / Stop
-app.post("/save", (req, res) => res.json({ status: "save ok" }));
-app.post("/validate", (req, res) => res.json({ status: "validate ok" }));
-app.post("/publish", (req, res) => res.json({ status: "publish ok" }));
-app.post("/stop", (req, res) => res.json({ status: "stop ok" }));
-
 // Start server
-app.listen(3000, () => console.log("Server running on port 3000"));
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
