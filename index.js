@@ -5,7 +5,9 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// CORS required for SFMC
+app.use(bodyParser.json());
+
+// CORS
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -13,21 +15,15 @@ app.use((req, res, next) => {
     next();
 });
 
-app.options('*', (req, res) => {
-    res.sendStatus(200);
-});
-
-app.use(bodyParser.json());
-
-// Serve UI files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// UI endpoint used by SFMC
+// UI endpoint
+// SFMC will try /ui and /ui/index.html → both work
 app.get('/ui', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/ui.html'));
+    res.sendFile(path.join(__dirname, 'public/ui/index.html'));
 });
 
-// Lifecycle events
+// Activity Lifecycle
 app.post("/save", (req, res) => res.json({status:"saved"}));
 app.post("/publish", (req, res) => res.json({status:"published"}));
 app.post("/validate", (req, res) => res.json({status:"validated"}));
