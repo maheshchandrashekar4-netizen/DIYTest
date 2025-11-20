@@ -1,25 +1,32 @@
 {
   "workflowApiVersion": "1.1",
+  "metaData": {
+    "icon": "icon.png",
+    "category": "message",
+    "version": "1.0"
+  },
   "type": "REST",
   "lang": {
     "en-US": {
-      "name": "Chandra Test Activity",
-      "description": "Test Custom Activity"
+      "name": "Chandra Custom Activity",
+      "description": "Custom activity for SFMC"
     }
   },
   "arguments": {
     "execute": {
       "inArguments": [],
       "outArguments": [],
-      "url": "https://diytest-5.onrender.com/execute",
-      "verb": "POST",
-      "body": "",
-      "header": "",
-      "format": "json",
-      "useJwt": false
+      "timeout": 10000,
+      "retryCount": 3,
+      "retryDelay": 1000,
+      "url": "https://diytest-5.onrender.com/execute"
     }
   },
   "configurationArguments": {
+    "applicationExtensionKey": "chandraCustomActivity",
+    "save": {
+      "url": "https://diytest-5.onrender.com/save"
+    },
     "publish": {
       "url": "https://diytest-5.onrender.com/publish"
     },
@@ -31,17 +38,10 @@
     }
   },
   "userInterfaces": {
-    "configTab": {
+    "configModal": {
+      "height": 500,
+      "width": 600,
       "url": "https://diytest-5.onrender.com/ui"
     }
-  },
-  "schema": {
-    "arguments": {
-      "execute": {
-        "inArguments": [],
-        "outArguments": []
-      }
-    }
-  },
-  "category": "custom"
+  }
 }
