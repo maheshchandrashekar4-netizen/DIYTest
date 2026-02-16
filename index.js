@@ -1,48 +1,56 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
+import express from "express";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+app.use(express.json());
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// (Optional) If you later add a /public folder with files, this will serve them.
+// Example: public/index.html => https://your-app.onrender.com/index.html
+app.use(express.static("public"));
 
-// Serve all static files from /public
-app.use(express.static(path.join(__dirname, 'public')));
+// Journey Builder UI (matches your configTab url: https://diytest-2.onrender.com/ui)
+app.get("/ui", (req, res) => {
+  res.type("html").send(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Chandra's Test Activity</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/postmonger/0.0.15/postmonger.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .title { font-size: 14px; font-weight: bold; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <div class="title">Chandra's Test Activity</div>
+  <p>If you see this, your custom activity UI is rendering in Journey Builder.</p>
 
-// UI URL for the custom activity
-app.get('/ui', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/ui.html'));
+  <script>
+    var session = new window.Postmonger.Session();
+
+    session.on("initActivity", function () {
+      console.log("UI Initialized");
+      // IMPORTANT: enable Next so you can close/save
+      session.trigger("updateButton", { button: "next", enabled: true });
+    });
+
+    session.on("clickedNext", function () {
+      // Tells Journey Builder we're done with the config UI
+      session.trigger("readyToComplete");
+    });
+
+    session.trigger("ready");
+  </script>
+</body>
+</html>`);
 });
 
-// Journey Builder Callbacks
-app.post('/publish', (req, res) => {
-    console.log("Publish called");
-    res.sendStatus(200);
-});
+// Required lifecycle endpoints
+app.post("/validate", (req, res) => res.json({ success: true }));
+app.post("/publish", (req, res) => res.json({ success: true }));
+app.post("/stop", (req, res) => res.json({ success: true }));
 
-app.post('/validate', (req, res) => {
-    console.log("Validate called");
-    res.sendStatus(200);
-});
+// Runtime execute endpoint (no-op)
+app.post("/execute", (req, res) => res.json({ success: true, outArguments: [] }));
 
-app.post('/stop', (req, res) => {
-    console.log("Stop called");
-    res.sendStatus(200);
-});
-
-app.post('/execute', (req, res) => {
-    console.log("Execute payload:", req.body);
-    res.json({ success: true });
-});
-
-// Default homepage
-app.get('/', (req, res) => {
-    res.send("Journey Builder Custom Activity Server Running1");
-});
-
-// Start server
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Listening on ${port}`));
