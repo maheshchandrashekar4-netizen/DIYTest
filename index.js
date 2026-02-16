@@ -39,7 +39,7 @@ app.post('/execute', (req, res) => {
 
 // Default homepage
 app.get('/', (req, res) => {
-    res.send("Journey Builder Custom Activity Server Running");
+    res.send("Journey Builder Custom Activity Server Running1");
 });
 
 // Start server
