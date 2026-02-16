@@ -3,11 +3,12 @@ import express from "express";
 const app = express();
 app.use(express.json());
 
-// (Optional) If you later add a /public folder with files, this will serve them.
-// Example: public/index.html => https://your-app.onrender.com/index.html
-app.use(express.static("public"));
+// Root route so "/" doesn't 404
+app.get("/", (req, res) => {
+  res.redirect("/ui");
+});
 
-// Journey Builder UI (matches your configTab url: https://diytest-2.onrender.com/ui)
+// Journey Builder UI
 app.get("/ui", (req, res) => {
   res.type("html").send(`<!DOCTYPE html>
 <html>
@@ -22,19 +23,16 @@ app.get("/ui", (req, res) => {
 </head>
 <body>
   <div class="title">Chandra's Test Activity</div>
-  <p>If you see this, your custom activity UI is rendering in Journey Builder.</p>
+  <p>If you see this, your custom activity UI is rendering.</p>
 
   <script>
     var session = new window.Postmonger.Session();
 
     session.on("initActivity", function () {
-      console.log("UI Initialized");
-      // IMPORTANT: enable Next so you can close/save
       session.trigger("updateButton", { button: "next", enabled: true });
     });
 
     session.on("clickedNext", function () {
-      // Tells Journey Builder we're done with the config UI
       session.trigger("readyToComplete");
     });
 
@@ -44,12 +42,12 @@ app.get("/ui", (req, res) => {
 </html>`);
 });
 
-// Required lifecycle endpoints
+// Lifecycle endpoints
 app.post("/validate", (req, res) => res.json({ success: true }));
 app.post("/publish", (req, res) => res.json({ success: true }));
 app.post("/stop", (req, res) => res.json({ success: true }));
 
-// Runtime execute endpoint (no-op)
+// Runtime endpoint (no-op)
 app.post("/execute", (req, res) => res.json({ success: true, outArguments: [] }));
 
 const port = process.env.PORT || 3000;
