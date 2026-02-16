@@ -3,7 +3,7 @@ import express from "express";
 const app = express();
 app.use(express.json());
 
-// Root route so "/" doesn't 404
+// Root route
 app.get("/", (req, res) => {
   res.redirect("/ui");
 });
@@ -42,13 +42,9 @@ app.get("/ui", (req, res) => {
 </html>`);
 });
 
-// Lifecycle endpoints
-app.post("/validate", (req, res) => res.json({ success: true }));
-app.post("/publish", (req, res) => res.json({ success: true }));
-app.post("/stop", (req, res) => res.json({ success: true }));
+// 🔥 THIS IS THE IMPORTANT ADDITION
+app.get("/index.html", (req, res) => {
+  res.redirect("/ui");
+});
 
-// Runtime endpoint (no-op)
-app.post("/execute", (req, res) => res.json({ success: true, outArguments: [] }));
-
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on ${port}`));
+//
