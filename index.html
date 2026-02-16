@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Chandra's Test Activity</title>
+
+    <!-- Required JB Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/postmonger/0.0.15/postmonger.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">Chandra's Test Activity</div>
+    <p>This custom activity fetches data from a DE.</p>
+
+    <script>
+        // BASIC Postmonger bootstrap
+        var Postmonger = window.Postmonger;
+        var session = new Postmonger.Session();
+
+        session.on("initActivity", function() {
+            console.log("UI Initialized");
+        });
+
+        session.on("clickedNext", function() {
+            session.trigger("readyToComplete");
+        });
+
+        // Tell JB UI is ready
+        session.trigger("ready");
+    </script>
+</body>
+</html>
